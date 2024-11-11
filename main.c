@@ -9,14 +9,9 @@ void    sigint_handler(int sig)
     rl_redisplay();
 }
 
-void    sigquit_handler(int sig)
-{
-    (void)sig;
-}
-
 void    manage_signals(void)
 {
-  //  signal(SIGQUIT, &sigquit_handler);
+    signal(SIGQUIT, SIG_IGN); //IRIS this ignores the signal, i added the signal stuff in main, sigint_handler and manage_signals
     signal(SIGINT, &sigint_handler);
 }
 
