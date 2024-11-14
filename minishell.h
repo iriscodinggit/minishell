@@ -24,6 +24,7 @@ typedef struct t_shell
 	/* IN TEST */
 	int	len_token;
 	int error;
+	int last_exit_status; //IRIS added variable to struct
 }	t_shell;
 
 typedef struct t_token

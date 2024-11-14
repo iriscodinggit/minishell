@@ -1,4 +1,7 @@
 #include "minishell.h"
+#include <signal.h> //IRIS this library is used for sig_ign
+
+//int last_exit_status; //IRIS this is a global variable on top of all functions
 
 void    sigint_handler(int sig) //IRIS (sigint_handler and manage_signals function)
 {

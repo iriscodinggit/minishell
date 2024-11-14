@@ -1,5 +1,6 @@
 #include "../../minishell.h"
 
+int last_exit_status; //IRIS declared global
 
 char *make_path(char *token)
 {
@@ -74,6 +75,7 @@ int check_pipe(t_token *token)
 void exec_main(t_token *token, char *cmd, char **envp, t_shell *shell)
 {
 	pid_t pid;
+	int	status;
 	// FIRST check if there is a pipe in all the command //
 	// Pipe -> autre direction d'execution // 
 	if(check_pipe(token) == 1)
@@ -82,7 +84,14 @@ void exec_main(t_token *token, char *cmd, char **envp, t_shell *shell)
 		if(pid == 0)
 			pipex_simple(token, shell);
 		else
-			wait(0);
+		{
+			wait(&status);
+			if (WIFEXITED(status)) //IRIS added lastexitstatus
+			{
+            	last_exit_status = WEXITSTATUS(status);
+				printf("The exit status is %i\n", last_exit_status);
+			}
+		}
 	}
 	// AVOIR FINIS 100% du normal avant de faire celui la. 
 	else if(check_pipe(token) == 2)
@@ -97,7 +106,9 @@ void exec_main(t_token *token, char *cmd, char **envp, t_shell *shell)
 			if(pid == 0)
 				exec_bin(token, cmd, envp);
 			else
+			{
 				wait(0);
+			}
 		}
 		// Echo
 		else if(token[0].id == 11)
