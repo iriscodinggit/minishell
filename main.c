@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    sigint_handler(int sig)
+void    sigint_handler(int sig) //IRIS (sigint_handler and manage_signals function)
 {
     (void)sig;
     write(1, "\n", 1);
@@ -11,7 +11,7 @@ void    sigint_handler(int sig)
 
 void    manage_signals(void)
 {
-    signal(SIGQUIT, SIG_IGN); //IRIS this ignores the signal, i added the signal stuff in main, sigint_handler and manage_signals
+    signal(SIGQUIT, SIG_IGN); //IRIS (sig_ign ignores the "\"" signal, i added the signal stuff in main)
     signal(SIGINT, &sigint_handler);
 }
 
@@ -111,12 +111,17 @@ int main(int argc, char **argv, char **envp)
 
 	shell = malloc(sizeof(t_shell));
 	shell->len_token = 0;
-    //token = malloc(sizeof(t_token));
+    token = malloc(sizeof(t_token));
     while (1)
     {
 		manage_signals();
 		shell->error = 0;
         shell->cmd = readline("\033[34;01mMinishell : \033[00m");
+		if (shell->cmd == NULL) //IRIS I used NULL instead of \0 because "cmd[0]" produces a SEGFAULT
+		{
+			printf("exit\n");
+			break;
+		}
 		if(shell->cmd[0] == '\0')
 			ret_val = 0;
 		else
@@ -154,7 +159,7 @@ int main(int argc, char **argv, char **envp)
     }
     free(shell->cmd);
 	free(shell);
-    //free(token);
+    free(token);
     return 0;
 }
     // HAVE TO MANAGE //
