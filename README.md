@@ -20,6 +20,14 @@ It reproduces key behaviors of bash, including command parsing, execution, redir
 - Proper memory management and leak-free execution
 
 ---
+## 🚀 Getting Started
+
+```bash
+git clone git@github.com:iriscodinggit/minishell.git
+cd minishell
+make
+./minishell
+
 
 ## 🧪 Example
 
