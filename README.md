@@ -27,7 +27,7 @@ git clone git@github.com:iriscodinggit/minishell.git
 cd minishell
 make
 ./minishell
-
+```
 
 ## 🧪 Example
 
